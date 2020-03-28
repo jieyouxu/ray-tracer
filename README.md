@@ -113,6 +113,9 @@ and
 		  may be the case that the members have some more specific/exotic
 		  requirements/constraints on what values can occupy the given member
 		  type.
+		* The check that no field can be set more than once `<=` no builder
+		  method can be invoked more than once constrains possibly useful
+		  builder usages such as `std::process::Command::arg`.
 - `rust-derive-builder`:
 	- Pros:
 		* `.build()` returns `Result` allows the expression of possible
@@ -134,6 +137,9 @@ of the builder pattern by generation, then, seems to be answered by:
 > the procedural macro is sufficiently powerful to address the specific use
 > case, and should be *avoided* when the generated builders are simply not
 > expressive enough to express all of the intents of your domain.
+>
+> This is especially the case if there are more complex run-time checks to be
+> done when `.build()` is invoked.
 
 ## References and Links
 
