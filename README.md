@@ -16,6 +16,54 @@ Done through two branches:
 
 Based on the article by Dawid Ciezarkiewicz [2].
 
+### Clean Architecture
+
+Based on the article by Robert C. Martin [3].
+
+Core objectives:
+
+- **Separation of concerns**
+- **Easy to test**
+- **Easy to substitute details**
+
+#### Dependency
+
+That source code dependencies need to point from lower-level details to
+higher-level abstractions, and not the other way around. Data structures,
+formats, implementation details from lower-level details should *not* pollute
+the design of higher-level abstractions.
+
+The core rationale for this is that lower-level details are subject to frequent
+changes and freqent breaking changes, while higher-level abstractions tend to be
+more stable. A migration from MySQL to PostgreSQL is a low-level implementation
+detail that should not affect nor infect the higher-level abstractions.
+
+#### Clear Boundaries, and Crossing Boundaries
+
+The *flow of control* need not be in the same direction as the *source code
+dependency*. If the *flow of control* goes from higher-level abstractions to
+lower-level details, then mitigation strategies can be employed to satisfy the
+Dependecy Inversion Principle, that higher-level abstractions should *not*
+depend on lower-level details.
+
+- The mitigation strategy in Java is to use `interface`s, and we can do the same
+  with Rust `trait`s - the abstraction of *what* the lower-level, and not *how*
+  the lower-level module goes on to achieve it.
+	* The `trait` must be declared in the higher-level module, so the direction
+	  of source code dependency must come from lower-level module and to the
+	  higher-level module.
+
+For example, our application might need to persist some data, but the core logic
+and domain concepts does not need to know and does not care how the persistence
+is done – it might be via flat files, via MySQL, via distributed databases, or
+even via in-memory databases – it does not matter and should not matter.
+
+When we do need to cross from higher-level abstractions to lower-level details,
+due to source code dependency, we typically should pass simple data structures
+(known as *Data Transfer Objects* (DTO)) to the lower-level details. Note that
+the declaration of the DTO **must** be within the higher-level abstractions as
+to not reverse the direction of source code dependency.
+
 ## Other Design Considerations
 
 ### Should Builders Be Used?
@@ -145,3 +193,4 @@ of the builder pattern by generation, then, seems to be answered by:
 
 1. https://github.com/petershirley/raytracinginoneweekend
 2. https://dpc.pw/how-i-structure-my-apps-in-rust-and-other-languages
+3. https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
