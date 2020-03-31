@@ -1,13 +1,3 @@
-**ARCHIVED: waiting on Rust to implement `const-generics`**.
-
-Limitations without `const-generics`:
-
-- Try to implement a homogenous tuple of arbitary length `N`, e.g.
-
-	```rust
-	Vector<const N: usize, T>
-	```
-
 # Ray Tracer
 
 A toy ray tracer (path tracer) written in Rust.
