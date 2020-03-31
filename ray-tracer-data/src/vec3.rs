@@ -37,6 +37,12 @@ impl<N> From<(N, N, N)> for Vec3<N> {
     }
 }
 
+impl<N: Copy> From<&(N, N, N)> for Vec3<N> {
+    fn from(t: &(N, N, N)) -> Self {
+        Self(t.0, t.1, t.2)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -50,9 +56,18 @@ mod tests {
     }
 
     #[test]
-    fn test_from_3_tuple() {
+    fn test_from_3_tuple_by_value() {
         let t = (1, 2, 3);
         let vec3 = Vec3::from(t);
+        assert_eq!(1, *vec3._0());
+        assert_eq!(2, *vec3._1());
+        assert_eq!(3, *vec3._2());
+    }
+
+    #[test]
+    fn test_from_3_tuple_by_ref() {
+        let t = (1, 2, 3);
+        let vec3 = Vec3::from(&t);
         assert_eq!(1, *vec3._0());
         assert_eq!(2, *vec3._1());
         assert_eq!(3, *vec3._2());
