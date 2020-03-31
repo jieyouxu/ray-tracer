@@ -1,4 +1,4 @@
-** ARCHIVED: waiting on Rust to implement `const-generics` **.
+**ARCHIVED: waiting on Rust to implement `const-generics`**.
 
 Limitations without `const-generics`:
 
