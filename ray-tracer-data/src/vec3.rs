@@ -31,6 +31,19 @@ impl<N> Vec3<N> {
     }
 }
 
+impl<N> Vec3<N>
+where
+    N: Copy,
+{
+    /// Mapping function for each of the components.
+    pub fn map<T>(&self, f: fn(N) -> T) -> Vec3<T>
+    where
+        T: Copy,
+    {
+        Vec3(f(self.0), f(self.1), f(self.2))
+    }
+}
+
 impl<N> From<(N, N, N)> for Vec3<N> {
     fn from(t: (N, N, N)) -> Self {
         Self(t.0, t.1, t.2)
@@ -71,5 +84,14 @@ mod tests {
         assert_eq!(1, *vec3._0());
         assert_eq!(2, *vec3._1());
         assert_eq!(3, *vec3._2());
+    }
+
+    #[test]
+    fn test_map() {
+        let vec3 = Vec3::new(1, 2, 3);
+        let updated_vec3 = vec3.map(|x| x + 1);
+        assert_eq!(2, *updated_vec3._0());
+        assert_eq!(3, *updated_vec3._1());
+        assert_eq!(4, *updated_vec3._2());
     }
 }

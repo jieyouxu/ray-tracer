@@ -25,6 +25,18 @@ impl<N> Vec4<N> {
     }
 }
 
+impl<N> Vec4<N>
+where
+    N: Copy,
+{
+    pub fn map<T>(&self, f: fn(N) -> T) -> Vec4<T>
+    where
+        T: Copy,
+    {
+        Vec4(f(self.0), f(self.1), f(self.2), f(self.3))
+    }
+}
+
 impl<N> From<(N, N, N, N)> for Vec4<N> {
     fn from(t: (N, N, N, N)) -> Self {
         Self(t.0, t.1, t.2, t.3)
