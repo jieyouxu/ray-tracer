@@ -7,20 +7,20 @@ pub struct Vec3<N>(N, N, N);
 
 impl<N> Vec3<N> {
     /// Constructs a new 3-component vector.
-    pub fn new(_0: N, _1: N, _2: N) -> Self {
+    pub const fn new(_0: N, _1: N, _2: N) -> Self {
         Self(_0, _1, _2)
     }
 
     /// Gets the first component of the vector.
-    pub fn _0(&self) -> &N {
+    pub const fn _0(&self) -> &N {
         &self.0
     }
     /// Gets the second component of the vector.
-    pub fn _1(&self) -> &N {
+    pub const fn _1(&self) -> &N {
         &self.1
     }
     /// Gets the third component of the vector.
-    pub fn _2(&self) -> &N {
+    pub const fn _2(&self) -> &N {
         &self.2
     }
 }
